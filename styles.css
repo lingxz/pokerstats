@@ -1,0 +1,22 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  background-color: #fafafa;
+  color: #303030;
+}
+
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#chart {
+  max-height: 500px;
+}
+
+th {
+  padding: 5px !important;
+}
+td.gridjs-td {
+  padding: 5px;
+}
