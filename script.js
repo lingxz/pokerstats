@@ -225,7 +225,21 @@ const generateStats = (sessions) => {
   generateTable(stats.perPersonStats, document.getElementById('stats-table'));
 }
 
-const Refresh = () => {
+const validateTotal = (sessions) => {
+  for (const s of sessions) {
+    total = 0;
+    for (const p in s.people) {
+      total += s.people[p].net;
+    }
+    // Floating point issues...
+    total = parseFloat(total.toFixed(2))
+    if (total != 0) {
+      console.log("Session ", s.date, " is wrong, off by $", total, " (negative means extra money, positive is bad)");
+    }
+  }
+}
+
+const refresh = () => {
   // Manually clear everything, lol
   let chart = Chart.getChart('chart');
   if (chart != undefined) {
@@ -241,11 +255,12 @@ const Refresh = () => {
   getSessions(year).then((sessions) => {
     generateChart(sessions);
     generateStats(sessions);
+    validateTotal(sessions);
   });
   document.getElementById("year-number").innerHTML = year;
 }
 
-Refresh();
+refresh();
 
 document.getElementById("year-form").addEventListener('submit', (e) => {
   e.preventDefault();
