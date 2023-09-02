@@ -264,5 +264,5 @@ refresh();
 
 document.getElementById("year-form").addEventListener('submit', (e) => {
   e.preventDefault();
-  Refresh();
+  refresh();
 })
