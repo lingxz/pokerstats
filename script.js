@@ -35,9 +35,12 @@ const getDatasets = (sessions, peopleSet, n) => {
   
   const dataset = []
   for (const p of peopleSet) {
+    data = accumulate(sessionsByPeople[p].slice(-n));
+    // Add a 0 in front so everyone's graphs start at 0, it looks nicer.
+    data.unshift(0);
     dataset.push({
       label: p,
-      data: accumulate(sessionsByPeople[p].slice(-n)),
+      data: data,
     })
   }
   return dataset;
@@ -59,7 +62,7 @@ const getCheckedPeople = () => {
 const reloadChart = (sessions, chart) => {
   const newInputN = parseInt(document.getElementById('num-sessions').value);
   const n = Math.min(newInputN, sessions.length);
-  chart.data.labels = [...Array(n).keys()];
+  chart.data.labels = [...Array(n+1).keys()];
   chart.data.datasets = getDatasets(sessions, getCheckedPeople(), n);
   chart.update();
 }
@@ -75,7 +78,7 @@ const generateChart = (sessions) => {
   const peopleToPlot = getPeopleFromLastNSessions(sessions, 1);
 
   const data = {
-    labels: [...Array(n).keys()],
+    labels: [...Array(n + 1).keys()],
     datasets: getDatasets(sessions, peopleToPlot, n),
   }
   
