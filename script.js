@@ -237,7 +237,13 @@ const validateTotal = (sessions) => {
     // Floating point issues...
     total = parseFloat(total.toFixed(2))
     if (total != 0) {
-      console.log("Session ", s.date, " is wrong, off by $", total, " (negative means extra money, positive is bad)");
+      const text = "Session " + s.date + " is wrong, off by $" + total + " (negative means extra money, positive is bad)";
+      console.log(text);
+      let statsDiv = document.getElementById("stats");
+      warning = document.createElement("div");
+      warning.append(text);
+      warning.classList.add("warning");
+      statsDiv.appendChild(warning);
     }
   }
 }
